@@ -1,12 +1,48 @@
-import blogPosts from '../data/blogPosts.js';
+import posts from '../data/blogPosts.js';
 
 
 function index(request, response) {
-    response.json(blogPosts);
+    response.json(posts);
 }
 
+function show(request, response) {
+    const { id } = request.params;
+    const idReal = Number(id)
 
+    if (isNaN(idReal)) {
+        response.status(404)
+            .json({
+                errore: 'id non corretto',
+                results: null
+            });
+        return;
+    }
+    if (idReal <= 0) {
+        response.status(404)
+            .json({
+                errore: 'valore id negativo',
+                results: null
+            });
+        return;
+    }
+    const foundPost = posts.find(post => {
+        return post.id === idReal
+    });
+    if (foundPost === undefined) {
+        response.status(404)
+            .json({
+                errore: 'id inesistente',
+                results: null
+            });
+        return;
+    }
+    response.json({
+        error: null,
+        results: foundPost
+    });
+}
 
 export {
     index,
+    show,
 }
