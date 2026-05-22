@@ -1,0 +1,1 @@
+import posts from '../data/blog-posts.js';

@@ -1,17 +1,17 @@
 import express from 'express';
+import postsRouter from './routes/posts-routes';
 
 const app = express();
-const NUMBER_PORT = process.env.NUMBER_PORT;
+const port = process.env.NUMBER_PORT || 3000;
+
+app.use('/posts', postsRouter)
 
 
 
-
-
-
-app.listen(NUMBER_PORT, (error => {
+app.listen(port, (error => {
     if (error) {
         console.error(error);
     } else {
-        console.log('sei in ascolto sulla porta 3000')
+        console.log(`sei in ascolto sulla porta ${port}`)
     }
 }));
